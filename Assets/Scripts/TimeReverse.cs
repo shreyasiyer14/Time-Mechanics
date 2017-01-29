@@ -18,16 +18,10 @@ public class TimeReverse : MonoBehaviour {
 	}
 
 	void Update () {
-		if (!reverseTime && positions.Count <= framesToBeReversed) {
+		if (!reverseTime) {
 			positions.Add (testObject.transform.position);
 			rotations.Add (testObject.transform.rotation);
 			timer += Time.deltaTime;
-		}
-
-		if (positions.Count > framesToBeReversed) {
-			timer = 0f;
-			positions.RemoveAt (0);
-			rotations.RemoveAt (0);
 		}
 
 		if (reverseTime) {
@@ -40,10 +34,10 @@ public class TimeReverse : MonoBehaviour {
 				rotations.RemoveAt (rotations.Count - 1);
 			}
 			if (positions.Count == 0) {
-				reverseTime = false;
-				ClearArray ();
+				//ClearArray ();
 				testObject.GetComponent<Rigidbody> ().useGravity = true;
 				testObject.GetComponent<Rigidbody> ().detectCollisions = true;
+				reverseTime = false;
 			}
 			timer = 0f;
 		}
