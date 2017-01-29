@@ -31,16 +31,18 @@ public class TimeReverse : MonoBehaviour {
 
 		if (reverseTime) {
 			testObject.GetComponent<Rigidbody> ().useGravity = false;
+			testObject.GetComponent<Rigidbody> ().detectCollisions = false;
 			if (positions.Count > 0) {
 				testObject.transform.position = positions [positions.Count - 1];
 				testObject.transform.rotation = rotations [rotations.Count - 1];
 				positions.RemoveAt (positions.Count - 1);
 				rotations.RemoveAt (rotations.Count - 1);
-
 			}
-			if (positions.Count < 0) {
+			if (positions.Count == 0) {
 				reverseTime = false;
 				ClearArray ();
+				testObject.GetComponent<Rigidbody> ().useGravity = true;
+				testObject.GetComponent<Rigidbody> ().detectCollisions = true;
 			}
 			timer = 0f;
 		}

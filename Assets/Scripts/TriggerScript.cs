@@ -19,8 +19,10 @@ public class TriggerScript : MonoBehaviour {
 		if (Input.GetButtonDown ("Fire1")) {
 			if (Physics.Raycast(cam.transform.position, cam.transform.forward, out _hit)) {	
 				Instantiate (explosion, _hit.point, Quaternion.LookRotation(_hit.normal));
-				timeManager.SlowMotionFunc ();
 			}
+		}
+		if (Input.GetButtonDown ("Fire2")) {
+			timeManager.SlowMotionFunc ();
 		}
 	}
 }
