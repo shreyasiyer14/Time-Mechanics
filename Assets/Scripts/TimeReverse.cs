@@ -10,26 +10,36 @@ public class TimeReverse : MonoBehaviour {
 	private float duration;
 
 	private bool reverseTime = false;
-	private LinkedList<Vector3> positions;
-	private LinkedList<Quaternion> rotations;
-
+	private List<Vector3> positions = new List<Vector3>();
+	private List<Quaternion> rotations = new List<Quaternion>();
+	private float timer = 0f;
 	void Start () {
-		//InvokeRepeating ("ClearArray", 1f, 5f);
+
 	}
 
 	void Update () {
-		if (!reverseTime) {
-			positions.AddFirst (testObject.transform.position);
-			rotations.AddFirst (testObject.transform.rotation);
-			Debug.Log (positions.Count);
+		if (!reverseTime && timer < duration) {
+			positions.Add (testObject.transform.position);
+			rotations.Add (testObject.transform.rotation);
+			timer += Time.deltaTime;
 		}
+
 		if (reverseTime) {
 			testObject.GetComponent<Rigidbody> ().useGravity = false;
-			testObject.transform.position = positions.First.Value;
-			testObject.transform.rotation = rotations.First.Value;
-			positions.RemoveFirst ();
-			rotations.RemoveFirst ();
+			if (positions.Count > 0) {
+				testObject.transform.position = positions [positions.Count - 1];
+				testObject.transform.rotation = rotations [rotations.Count - 1];
+				positions.RemoveAt (positions.Count - 1);
+				rotations.RemoveAt (rotations.Count - 1);
+
+			}
+			if (positions.Count < 0) {
+				reverseTime = false;
+				ClearArray ();
+			}
+			timer = 0f;
 		}
+
 	}
 
 	public void TimeReverseFunc() {

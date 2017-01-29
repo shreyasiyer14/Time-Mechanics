@@ -18,8 +18,10 @@ public class TriggerScript2 : MonoBehaviour {
 		if (Input.GetButtonDown ("Fire1")) {
 			if (Physics.Raycast(cam.transform.position, cam.transform.forward, out _hit)) {	
 				Instantiate (explosion, _hit.point, Quaternion.LookRotation(_hit.normal));
-				timeManager.TimeReverseFunc ();
 			}
+		}
+		if (Input.GetButtonDown ("Fire2")) {
+			timeManager.TimeReverseFunc ();
 		}
 	}
 }
