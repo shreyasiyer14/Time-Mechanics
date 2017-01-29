@@ -7,7 +7,7 @@ public class TimeReverse : MonoBehaviour {
 	public GameObject testObject;
 
 	[SerializeField]
-	private float duration;
+	private int framesToBeReversed;
 
 	private bool reverseTime = false;
 	private List<Vector3> positions = new List<Vector3>();
@@ -18,15 +18,16 @@ public class TimeReverse : MonoBehaviour {
 	}
 
 	void Update () {
-		if (!reverseTime && timer < duration) {
+		if (!reverseTime && positions.Count <= framesToBeReversed) {
 			positions.Add (testObject.transform.position);
 			rotations.Add (testObject.transform.rotation);
 			timer += Time.deltaTime;
 		}
 
-		if (!reverseTime && timer >= duration) {
+		if (positions.Count > framesToBeReversed) {
 			timer = 0f;
-			ClearArray ();
+			positions.RemoveAt (0);
+			rotations.RemoveAt (0);
 		}
 
 		if (reverseTime) {
