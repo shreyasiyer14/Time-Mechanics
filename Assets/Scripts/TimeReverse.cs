@@ -24,6 +24,11 @@ public class TimeReverse : MonoBehaviour {
 			timer += Time.deltaTime;
 		}
 
+		if (!reverseTime && timer >= duration) {
+			timer = 0f;
+			ClearArray ();
+		}
+
 		if (reverseTime) {
 			testObject.GetComponent<Rigidbody> ().useGravity = false;
 			if (positions.Count > 0) {
