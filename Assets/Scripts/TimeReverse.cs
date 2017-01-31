@@ -33,8 +33,8 @@ public class TimeReverse : MonoBehaviour {
 				positions.RemoveAt (positions.Count - 1);
 				rotations.RemoveAt (rotations.Count - 1);
 			}
-			if (positions.Count == 0) {
-				//ClearArray ();
+			if (positions.Count <= 1) {
+				ClearArray ();
 				testObject.GetComponent<Rigidbody> ().useGravity = true;
 				testObject.GetComponent<Rigidbody> ().detectCollisions = true;
 				reverseTime = false;
